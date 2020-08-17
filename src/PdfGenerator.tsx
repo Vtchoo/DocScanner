@@ -58,14 +58,14 @@ class PdfGenerator extends Component<PdfGeneratorProps, PdfGeneratorState> {
                 presentationStyle='overFullScreen'
                 onRequestClose={this.props.onRequestClose}
             >
-                <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+                <ScrollView style={{ flex: 1, backgroundColor: 'white' }} contentContainerStyle={{ alignItems: 'center' }}>
                     <TouchableHighlight
                         onPress={() => this.setState({ showScanner: true })}
                         style={{ padding: 5, alignItems: 'center' }}>
                         <Text>Add picture</Text>
                     </TouchableHighlight>
                     {this.state.pictures.map(pic =>
-                        <Image source={{ uri: pic.croppedImage }} style={{ width: '90%', aspectRatio: pic.width / pic.height }} />)
+                        <Image key={pic.croppedImage} source={{ uri: pic.croppedImage }} style={{ width: '90%', aspectRatio: pic.width / pic.height }} />)
                     }
                     
                     {this.state.showScanner &&
