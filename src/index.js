@@ -23,7 +23,7 @@ class Application extends Component {
         return (
             <View style={{flex: 1}}>
                 <Text>Lista de PDFs</Text>
-                {this.state.PDFs.map(pdf => <Text>{JSON.stringify(pdf, null, '\n')}</Text>)}
+                {this.state.PDFs.map(pdf => <Text>{JSON.stringify(pdf, null, '\t')}</Text>)}
                 <TouchableHighlight
                     underlayColor='blue'
                     onPress={() => this.setState({ exibirCriadorDePDF: true })}
