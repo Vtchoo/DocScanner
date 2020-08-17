@@ -11,4 +11,15 @@ const requestExternalStoreageRead = async () => {
     return granted == PermissionsAndroid.RESULTS.GRANTED
 }
 
-export { requestExternalStoreageRead }
+const requestCameraAccess = async () => {
+    const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+            'title': 'Acesso à câmera',
+            'message': 'O aplicativo precisa de permissão para acessar a câmera'
+        }
+    )
+    return granted == PermissionsAndroid.RESULTS.GRANTED
+}
+
+export { requestExternalStoreageRead, requestCameraAccess }

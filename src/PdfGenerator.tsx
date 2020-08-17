@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Modal, TouchableHighlight, Text } from 'react-native'
 
 import DocumentScanner from '@woonivers/react-native-document-scanner'
-import { requestExternalStoreageRead } from './permissions'
+import { requestExternalStoreageRead, requestCameraAccess } from './permissions'
 
 interface Props {
     onPDFAdd: (event: any) => any
@@ -19,15 +19,18 @@ class PdfGenerator extends Component<Props> {
 
     async componentDidMount() {
         const teste = await requestExternalStoreageRead()
+        const teste2 = await requestCameraAccess()
     }
 
-    handleOnPictureTaken(event: any) {
+    handleOnPictureTaken = (event: any) => {
         alert(JSON.stringify(event))
         this.props.onPDFAdd(event)
     }
 
-    teste = () => {
-        console.log(this.scanner)
+    teste = async () => {
+        //console.log(this.scanner)
+
+        this.scanner.capture()
     }
 
     render() {
@@ -40,7 +43,7 @@ class PdfGenerator extends Component<Props> {
                 <View style={{flex: 1, backgroundColor: 'white'}}>
                     <DocumentScanner
                         ref={ref => this.scanner = ref}
-                        style={{flex: 1, backgroundColor: 'transparent'}}
+                        style={{flex: 1, backgroundColor: 'transparent', aspectRatio: undefined}}
                         onPictureTaken={this.handleOnPictureTaken}
                         overlayColor="rgba(255,130,0, 0.7)"
                         enableTorch={false}
