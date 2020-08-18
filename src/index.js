@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableHighlight } from 'react-native'
 import PdfGenerator from './PdfGenerator'
+import PDFViewer from './PdfViewer'
 
 class Application extends Component {
 
@@ -10,6 +11,7 @@ class Application extends Component {
         this.state = {
 
             exibirCriadorDePDF: false,
+            pdf: '',
 
             PDFs: []
         }
@@ -21,9 +23,17 @@ class Application extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <Text>Lista de PDFs</Text>
-                {this.state.PDFs.map(pdf => <Text>{JSON.stringify(pdf, null, '\t')}</Text>)}
+
+                {this.state.PDFs.map(pdf =>
+                    <TouchableHighlight
+                        onPress={() => this.setState({ pdf: `file://${pdf.filePath}` })}
+                    >
+                        <Text>{JSON.stringify(pdf, null, '\t')}</Text>
+                    </TouchableHighlight>
+                )}
+
                 <TouchableHighlight
                     underlayColor='blue'
                     onPress={() => this.setState({ exibirCriadorDePDF: true })}
@@ -38,6 +48,14 @@ class Application extends Component {
                         onPDFAdd={this.adicionarPDF}
                     />
                 }
+
+                {this.state.pdf !== '' &&
+                    <PDFViewer
+                        source={this.state.pdf}
+                        onRequestClose={() => this.setState({ pdf: '' })}
+                    />
+                }
+                
             </View>
         )
     }

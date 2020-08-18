@@ -22,4 +22,15 @@ const requestCameraAccess = async () => {
     return granted == PermissionsAndroid.RESULTS.GRANTED
 }
 
-export { requestExternalStoreageRead, requestCameraAccess }
+const requestExternalStoreageWrite = async () => {
+    const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+            'title': 'Armazenamento externo',
+            'message': 'O aplicativo precisa de permissão para gravar arquivos no aparelho'
+        }
+    )
+    return granted == PermissionsAndroid.RESULTS.GRANTED
+}
+
+export { requestExternalStoreageRead, requestCameraAccess, requestExternalStoreageWrite }
